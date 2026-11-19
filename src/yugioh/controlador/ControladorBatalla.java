@@ -183,4 +183,33 @@ public class ControladorBatalla {
         if (j1.haPerdido()) vista.mostrarMensaje("¡Gana " + j2.getNombre() + "!");
         else if (j2.haPerdido()) vista.mostrarMensaje("¡Gana " + j1.getNombre() + "!");
     }
+        // ===== Reportes =====
+
+    // Reporte 1: monstruos vivos de ambos jugadores, ordenados por ATQ (mayor a menor)
+    public String reporteMonstruosPorAtaque() {
+        ArrayList<Monstruo> todos = new ArrayList<>();
+        todos.addAll(monstruosJ1);
+        todos.addAll(monstruosJ2);
+        todos.sort((a, b) -> Integer.compare(b.getAtaque(), a.getAtaque()));
+        StringBuilder sb = new StringBuilder("=== REPORTE 1: Monstruos por ATQ ===\n");
+        for (Monstruo m : todos) {
+            sb.append(m).append("\n");
+        }
+        if (todos.isEmpty()) sb.append("(sin monstruos)\n");
+        return sb.toString();
+    }
+
+    // Reporte 2: combates donde hubo daño a los LP o se destruyó algún monstruo
+    public String reporteCombatesRelevantes() {
+        StringBuilder sb = new StringBuilder("=== REPORTE 2: Combates con daño o destrucción ===\n");
+        int total = 0;
+        for (ResultadoCombate r : resultados) {
+            if (r.getDanio() > 0 || r.isAtacanteDestruido() || r.isDefensorDestruido()) {
+                sb.append(r).append("\n");
+                total++;
+            }
+        }
+        sb.append("Total: ").append(total).append(" de ").append(resultados.size()).append(" combates\n");
+        return sb.toString();
+    }
 }
