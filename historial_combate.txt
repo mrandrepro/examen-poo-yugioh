@@ -1,1 +1,2 @@
 Dragón Blanco -> Mago Oscuro | daño: 500 | Defensor destruido
+Mago Oscuro -> Dragón Blanco | daño: 500 | Atacante destruido
